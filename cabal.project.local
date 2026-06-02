@@ -1,0 +1,3 @@
+package postgresql-libpq
+  extra-lib-dirs: C:\ghcup\msys64\mingw64\lib
+  extra-include-dirs: C:\ghcup\msys64\mingw64\include
