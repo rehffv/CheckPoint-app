@@ -30,6 +30,16 @@
   (major1) == 4 && (major2) <  18 || \
   (major1) == 4 && (major2) == 18 && (minor) <= 3)
 #endif /* MIN_VERSION_base */
+/* package bytestring-0.11.5.4 */
+#ifndef VERSION_bytestring
+#define VERSION_bytestring "0.11.5.4"
+#endif /* VERSION_bytestring */
+#ifndef MIN_VERSION_bytestring
+#define MIN_VERSION_bytestring(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  11 || \
+  (major1) == 0 && (major2) == 11 && (minor) <= 5)
+#endif /* MIN_VERSION_bytestring */
 /* package mtl-2.3.1 */
 #ifndef VERSION_mtl
 #define VERSION_mtl "2.3.1"
@@ -40,15 +50,15 @@
   (major1) == 2 && (major2) <  3 || \
   (major1) == 2 && (major2) == 3 && (minor) <= 1)
 #endif /* MIN_VERSION_mtl */
-/* package postgresql-simple-0.7.0.1 */
+/* package postgresql-simple-0.6.5.1 */
 #ifndef VERSION_postgresql_simple
-#define VERSION_postgresql_simple "0.7.0.1"
+#define VERSION_postgresql_simple "0.6.5.1"
 #endif /* VERSION_postgresql_simple */
 #ifndef MIN_VERSION_postgresql_simple
 #define MIN_VERSION_postgresql_simple(major1,major2,minor) (\
   (major1) <  0 || \
-  (major1) == 0 && (major2) <  7 || \
-  (major1) == 0 && (major2) == 7 && (minor) <= 0)
+  (major1) == 0 && (major2) <  6 || \
+  (major1) == 0 && (major2) == 6 && (minor) <= 5)
 #endif /* MIN_VERSION_postgresql_simple */
 /* package servant-0.20.3.0 */
 #ifndef VERSION_servant
