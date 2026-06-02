@@ -2,12 +2,8 @@ FROM haskell:9.6.7
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    postgresql-client \
-    pkg-config \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y libpq-dev
 
 COPY haskprojeto.cabal ./
 
