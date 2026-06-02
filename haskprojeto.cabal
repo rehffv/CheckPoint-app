@@ -77,7 +77,8 @@ executable haskprojeto
                         warp,
                         aeson,
                         postgresql-simple,
-                        mtl
+                        mtl,
+                        bytestring
 
 
     -- Directories containing source files.
