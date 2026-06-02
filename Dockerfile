@@ -3,7 +3,10 @@ FROM haskell:9.6.7
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y libpq-dev
+    apt-get install -y \
+        libpq-dev \
+        pkg-config \
+        zlib1g-dev
 
 COPY haskprojeto.cabal ./
 
