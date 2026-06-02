@@ -20,20 +20,40 @@
 # Roda o servidor
 ##CMD cabal run
 
+##FROM haskell:9.6.7
+
+##WORKDIR /app
+
+# Dependências necessárias para postgresql-simple
+##RUN apt-get update && apt-get install -y \
+##    libpq-dev \
+##    postgresql-client \
+##    pkg-config \
+##    build-essential \
+##    && rm -rf /var/lib/apt/lists/*
+
+##COPY haskprojeto.cabal ./
+##COPY cabal.project.local ./
+
+##RUN cabal update
+##RUN cabal build --only-dependencies
+
+##COPY . .
+
+##RUN cabal build
+
+##EXPOSE 8080
+
+##CMD ["cabal", "run", "haskprojeto"]
+
 FROM haskell:9.6.7
 
 WORKDIR /app
 
-# Dependências necessárias para postgresql-simple
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    postgresql-client \
-    pkg-config \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y postgresql-client-15 libpq-dev
 
 COPY haskprojeto.cabal ./
-COPY cabal.project.local ./
 
 RUN cabal update
 RUN cabal build --only-dependencies
@@ -42,6 +62,4 @@ COPY . .
 
 RUN cabal build
 
-EXPOSE 8080
-
-CMD ["cabal", "run", "haskprojeto"]
+CMD cabal run
