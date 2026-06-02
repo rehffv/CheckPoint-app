@@ -2,8 +2,12 @@ FROM haskell:9.6.7
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y postgresql-client-15 libpq-dev
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    postgresql-client \
+    pkg-config \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY haskprojeto.cabal ./
 
@@ -14,4 +18,4 @@ COPY . .
 
 RUN cabal build
 
-CMD cabal run
+CMD ["cabal", "run", "haskprojeto"]
