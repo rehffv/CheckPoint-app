@@ -279,18 +279,23 @@
     }
 
     .task-timer {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-family: 'Syne', sans-serif;
-      white-space: nowrap;
-    }
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  white-space: nowrap;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 140px;
+}
 
-    .task-timer.ativo   { background: rgba(180,142,240,0.15); color: var(--lilac); }
-    .task-timer.urgente { background: rgba(251,146,60,0.2);   color: #fb923c; }
-    .task-timer.vencido { background: rgba(248,113,113,0.3);  color: var(--danger); }
-    .task-timer.ok      { background: rgba(110,231,183,0.15); color: var(--success); }
+    .task-timer.ativo    { background: rgba(180,142,240,0.15); color: var(--lilac); }
+    .task-timer.urgente  { background: rgba(251,146,60,0.2);   color: #fb923c; }
+    .task-timer.urgente2 { background: rgba(251,146,60,0.12);  color: #ff7226; }
+    .task-timer.vencido  { background: rgba(251,94,94,0.3);    color: var(--danger); }
+    .task-timer.ok       { background: rgba(110,231,183,0.15); color: var(--success); }
 
     .task-actions { display: flex; gap: 6px; }
 
@@ -516,19 +521,29 @@
     const fim   = new Date(prazo);
     const diff  = fim - agora;
 
-    if (concluida && diff >= 0) return { texto: '✓ No prazo', classe: 'ok' };
-    if (concluida && diff < 0)  return { texto: '✗ Atrasado', classe: 'vencido' };
-    if (diff <= 0) return { texto: '⏰ Prazo vencido!', classe: 'vencido' };
-
+    if (concluida && diff >= 0) return { texto: '✓ Tarefa no prazo', classe: 'ok' };
+    if (concluida && diff < 0)  return { texto: '✗ Tarefa atrasada', classe: 'vencido' };
+    if (diff <= 0)              return { texto: '⏰ Prazo expirado', classe: 'vencido' };
+                              //return { texto: '⏱ Faltam hhh mmm', classe: 'urgente' };
     const h = Math.floor(diff / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
 
-    if (h < 1)  return { texto: `⚠ ${m}m ${s}s restantes`, classe: 'urgente' };
-    if (h < 24) return { texto: `⏱ ${h}h ${m}m restantes`, classe: 'urgente' };
+    if (h < 1)  {
+      const mm = String(m).padStart(2, '0');
+      const ss = String(s).padStart(2, '0');
+      return { texto: `⚠ Faltam ${mm}m ${ss}s`, classe: 'urgente2' };
+    }
+    if (h < 24) {
+      const hh = String(h).padStart(2, '0');
+      const mm = String(m).padStart(2, '0');
+      return { texto: `⏱ Faltam ${hh}h ${mm}m`, classe: 'urgente' };
+    }
 
-    const d = Math.floor(h / 24);
-    return { texto: `⏱ ${d}d ${h % 24}h restantes`, classe: 'ativo' };
+    const d  = Math.floor(h / 24);
+    const hh = String(h % 24).padStart(2, '0');
+    const dd = String(d).padStart(2, '0');
+    return { texto: `⏱ Faltam ${dd}d ${hh}h`, classe: 'ativo' };
   }
 
   function estaVencida(t) {
