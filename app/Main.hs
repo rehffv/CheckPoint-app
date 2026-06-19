@@ -25,7 +25,7 @@ main = do
       { connectHost     = "localhost"
       , connectDatabase = "taskdb"
       , connectUser     = "postgres"
-      , connectPassword = "postgres"
+      , connectPassword = "Banco123"
       }
 
   putStrLn ("Servidor rodando na porta " ++ show port)

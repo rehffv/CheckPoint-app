@@ -4,27 +4,28 @@ module Api.Model where
 import GHC.Generics
 import Data.Aeson
 import Database.PostgreSQL.Simple.FromRow
+import Database.PostgreSQL.Simple.ToRow
+import Database.PostgreSQL.Simple.ToField
 
--- Tipo que representa uma tarefa
 data Task = Task
   { taskId       :: Maybe Int
   , titulo       :: String
   , descricao    :: Maybe String
-  , prioridade   :: String   -- "baixa", "media", "alta"
+  , prioridade   :: String
   , concluida    :: Bool
+  , prazo        :: Maybe String
   } deriving (Show, Generic)
 
 instance ToJSON Task
 instance FromJSON Task
 instance FromRow Task
+instance ToRow Task
 
--- Para retornar lista de tarefas
 newtype TaskResponse = TaskResponse { tasks :: [Task] }
   deriving (Show, Generic)
 
 instance ToJSON TaskResponse
 
--- Para retornar ID após criação
 newtype ResultadoResponse = ResultadoResponse { resultId :: Int }
   deriving (Show, Generic)
 

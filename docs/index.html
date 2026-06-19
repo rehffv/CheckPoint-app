@@ -31,7 +31,6 @@
       overflow-x: hidden;
     }
 
-    /* Background mesh */
     body::before {
       content: '';
       position: fixed;
@@ -51,11 +50,7 @@
       z-index: 1;
     }
 
-    /* Header */
-    header {
-      margin-bottom: 48px;
-      animation: fadeDown 0.6s ease both;
-    }
+    header { margin-bottom: 48px; animation: fadeDown 0.6s ease both; }
 
     .logo {
       font-family: 'Syne', sans-serif;
@@ -68,14 +63,8 @@
       background-clip: text;
     }
 
-    .tagline {
-      color: var(--subtext);
-      font-size: 0.92rem;
-      margin-top: 4px;
-      font-weight: 300;
-    }
+    .tagline { color: var(--subtext); font-size: 0.92rem; margin-top: 4px; font-weight: 300; }
 
-    /* Stats bar */
     .stats {
       display: flex;
       gap: 16px;
@@ -92,22 +81,9 @@
       text-align: center;
     }
 
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--lilac);
-    }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--lilac); }
+    .stat-label { font-size: 0.75rem; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--subtext);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 2px;
-    }
-
-    /* Form */
     .form-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -127,13 +103,7 @@
       margin-bottom: 20px;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     .form-row.full { grid-template-columns: 1fr; }
 
     input, textarea, select {
@@ -154,12 +124,13 @@
       box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
     }
 
-    input::placeholder, textarea::placeholder {
-      color: var(--muted);
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.6) sepia(1) saturate(3) hue-rotate(220deg);
+      cursor: pointer;
     }
 
+    input::placeholder, textarea::placeholder { color: var(--muted); }
     textarea { resize: vertical; min-height: 72px; }
-
     select option { background: var(--surface); }
 
     .btn {
@@ -189,12 +160,12 @@
 
     .btn-primary:active { transform: translateY(0); }
 
-    /* Filters */
     .filters {
       display: flex;
       gap: 8px;
       margin-bottom: 24px;
       flex-wrap: wrap;
+      justify-content: center;
       animation: fadeDown 0.6s 0.2s ease both;
     }
 
@@ -211,14 +182,8 @@
     }
 
     .filter-btn:hover { border-color: var(--violet); color: var(--lilac); }
-
-    .filter-btn.active {
-      background: rgba(124,58,237,0.18);
-      border-color: var(--violet);
-      color: var(--lilac);
-    }
-
-    /* Task list */
+    .filter-btn.active { background: rgba(124,58,237,0.18); border-color: var(--violet); color: var(--lilac); }
+    
     #task-list { display: flex; flex-direction: column; gap: 10px; }
 
     .task-item {
@@ -251,6 +216,16 @@
     .task-item.done { opacity: 0.5; }
     .task-item.done .task-title { text-decoration: line-through; color: var(--subtext); }
 
+    .task-item.vencida:not(.done) {
+      border-color: var(--danger);
+      animation: slideIn 0.3s ease both, pulseRed 2s infinite;
+    }
+
+    @keyframes pulseRed {
+      0%, 100% { border-color: rgba(248,113,113,0.4); }
+      50%       { border-color: rgba(248,113,113,1); }
+    }
+
     .task-check {
       width: 20px; height: 20px;
       border-radius: 6px;
@@ -279,13 +254,7 @@
       text-overflow: ellipsis;
     }
 
-    .task-desc {
-      font-size: 0.83rem;
-      color: var(--subtext);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
+    .task-desc { font-size: 0.83rem; color: var(--subtext); margin-bottom: 8px; line-height: 1.4; }
     .task-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
     .badge {
@@ -301,7 +270,29 @@
     .badge.media { background: rgba(180,142,240,0.15); color: var(--lilac); }
     .badge.baixa { background: rgba(110,231,183,0.15); color: var(--success); }
 
-    .task-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .task-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .task-timer {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: 'Syne', sans-serif;
+      white-space: nowrap;
+    }
+
+    .task-timer.ativo   { background: rgba(180,142,240,0.15); color: var(--lilac); }
+    .task-timer.urgente { background: rgba(251,146,60,0.2);   color: #fb923c; }
+    .task-timer.vencido { background: rgba(248,113,113,0.3);  color: var(--danger); }
+    .task-timer.ok      { background: rgba(110,231,183,0.15); color: var(--success); }
+
+    .task-actions { display: flex; gap: 6px; }
 
     .icon-btn {
       width: 32px; height: 32px;
@@ -315,10 +306,9 @@
       transition: all 0.2s;
     }
 
-    .icon-btn:hover.edit  { border-color: var(--lilac); color: var(--lilac); background: rgba(180,142,240,0.1); }
-    .icon-btn:hover.del   { border-color: var(--danger); color: var(--danger); background: rgba(248,113,113,0.1); }
+    .icon-btn:hover.edit { border-color: var(--lilac); color: var(--lilac); background: rgba(180,142,240,0.1); }
+    .icon-btn:hover.del  { border-color: var(--danger); color: var(--danger); background: rgba(248,113,113,0.1); }
 
-    /* Edit modal */
     .modal-overlay {
       display: none;
       position: fixed; inset: 0;
@@ -352,29 +342,15 @@
 
     .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
 
-    .btn-secondary {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--subtext);
-      flex: 1;
-    }
-
+    .btn-secondary { background: var(--surface); border: 1px solid var(--border); color: var(--subtext); flex: 1; }
     .btn-secondary:hover { border-color: var(--violet); color: var(--text); }
-
     .btn-save { background: linear-gradient(135deg, var(--violet), var(--violet2)); color: #fff; flex: 2; }
     .btn-save:hover { filter: brightness(1.15); }
 
-    /* Empty state */
-    .empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--subtext);
-    }
-
+    .empty { text-align: center; padding: 60px 20px; color: var(--subtext); }
     .empty-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.4; }
     .empty p { font-size: 0.9rem; }
 
-    /* Toast */
     .toast {
       position: fixed;
       bottom: 28px; right: 28px;
@@ -393,69 +369,35 @@
 
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* Animations */
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(-12px); }
       to   { opacity: 1; transform: translateX(0); }
     }
-
     @keyframes modalIn {
       from { opacity: 0; transform: scale(0.95); }
       to   { opacity: 1; transform: scale(1); }
     }
 
     @media (max-width: 600px) {
-  .container {
-    padding: 32px 16px 60px;
-  }
-
-  .logo {
-    font-size: 1.6rem;
-  }
-
-  .tagline {
-    font-size: 0.85rem;
-  }
-
-  .stats {
-    gap: 8px;
-  }
-
-  .stat {
-    padding: 10px 8px;
-  }
-
-  .stat-num {
-    font-size: 1.2rem;
-  }
-
-  .stat-label {
-    font-size: 0.68rem;
-  }
-
-  .form-card {
-    padding: 20px 16px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .task-item {
-    padding: 14px 12px;
-  }
-
-  .task-title {
-    font-size: 0.9rem;
-  }
-}
+      .container { padding: 32px 16px 60px; }
+      .logo { font-size: 1.6rem; }
+      .tagline { font-size: 0.85rem; }
+      .stats { gap: 8px; }
+      .stat { padding: 10px 8px; }
+      .stat-num { font-size: 1.2rem; }
+      .stat-label { font-size: 0.68rem; }
+      .form-card { padding: 20px 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      .task-item { padding: 14px 12px; }
+      .task-title { font-size: 0.9rem; }
+    }
   </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -480,8 +422,12 @@
         <option value="alta">🔴 Prioridade Alta</option>
       </select>
     </div>
-    <div class="form-row full">
+    <div class="form-row">
       <textarea id="input-descricao" placeholder="Descrição (opcional)"></textarea>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <label style="font-size:0.78rem;color:var(--subtext);text-transform:uppercase;letter-spacing:0.08em">⏱ Prazo (opcional)</label>
+        <input type="datetime-local" id="input-prazo" />
+      </div>
     </div>
     <button class="btn btn-primary" onclick="criarTarefa()">＋ Adicionar Tarefa</button>
   </div>
@@ -493,6 +439,7 @@
     <button class="filter-btn" onclick="filtrar('alta', this)">🔴 Alta</button>
     <button class="filter-btn" onclick="filtrar('media', this)">🟣 Média</button>
     <button class="filter-btn" onclick="filtrar('baixa', this)">🟢 Baixa</button>
+    <button class="filter-btn" onclick="filtrar('vencidas', this)">⏰ Vencidas</button>
   </div>
 
   <div id="task-list"></div>
@@ -509,12 +456,16 @@
     <div class="form-row full" style="margin-bottom:12px">
       <textarea id="edit-descricao" placeholder="Descrição"></textarea>
     </div>
-    <div class="form-row full" style="margin-bottom:0">
+    <div class="form-row" style="margin-bottom:0">
       <select id="edit-prioridade">
         <option value="baixa">🟢 Prioridade Baixa</option>
         <option value="media">🟣 Prioridade Média</option>
         <option value="alta">🔴 Prioridade Alta</option>
       </select>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <label style="font-size:0.78rem;color:var(--subtext);text-transform:uppercase;letter-spacing:0.08em">⏱ Prazo</label>
+        <input type="datetime-local" id="edit-prazo" />
+      </div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
@@ -527,8 +478,10 @@
 
 <script>
   const API = 'https://checkpoint-app-w7ue.onrender.com';
+//  const API = 'http://localhost:8080';
   let todasTarefas = [];
   let filtroAtual = 'todas';
+  let timerInterval = null;
 
   async function carregarTarefas() {
     try {
@@ -557,13 +510,42 @@
     renderizar();
   }
 
+  function calcularTimer(prazo, concluida) {
+    if (!prazo) return null;
+    const agora = new Date();
+    const fim   = new Date(prazo);
+    const diff  = fim - agora;
+
+    if (concluida && diff >= 0) return { texto: '✓ No prazo', classe: 'ok' };
+    if (concluida && diff < 0)  return { texto: '✗ Atrasado', classe: 'vencido' };
+    if (diff <= 0) return { texto: '⏰ Prazo vencido!', classe: 'vencido' };
+
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    if (h < 1)  return { texto: `⚠ ${m}m ${s}s restantes`, classe: 'urgente' };
+    if (h < 24) return { texto: `⏱ ${h}h ${m}m restantes`, classe: 'urgente' };
+
+    const d = Math.floor(h / 24);
+    return { texto: `⏱ ${d}d ${h % 24}h restantes`, classe: 'ativo' };
+  }
+
+  function estaVencida(t) {
+    if (!t.prazo) return false;
+    return new Date(t.prazo) < new Date();
+  }
+
   function renderizar() {
+    if (timerInterval) clearInterval(timerInterval);
+
     let lista = [...todasTarefas];
     if (filtroAtual === 'pendentes')  lista = lista.filter(t => !t.concluida);
     if (filtroAtual === 'concluidas') lista = lista.filter(t => t.concluida);
-    if (filtroAtual === 'alta')  lista = lista.filter(t => t.prioridade === 'alta');
-    if (filtroAtual === 'media') lista = lista.filter(t => t.prioridade === 'media');
-    if (filtroAtual === 'baixa') lista = lista.filter(t => t.prioridade === 'baixa');
+    if (filtroAtual === 'alta')       lista = lista.filter(t => t.prioridade === 'alta');
+    if (filtroAtual === 'media')      lista = lista.filter(t => t.prioridade === 'media');
+    if (filtroAtual === 'baixa')      lista = lista.filter(t => t.prioridade === 'baixa');
+    if (filtroAtual === 'vencidas')   lista = lista.filter(t => estaVencida(t));
 
     const container = document.getElementById('task-list');
 
@@ -576,34 +558,66 @@
       return;
     }
 
-    container.innerHTML = lista.map(t => `
-      <div class="task-item ${t.prioridade} ${t.concluida ? 'done' : ''}" id="task-${t.taskId}">
-        <div class="task-check ${t.concluida ? 'checked' : ''}" onclick="toggleConcluida(${t.taskId}, ${!t.concluida}, '${escapar(t.titulo)}', '${escapar(t.descricao || '')}', '${t.prioridade}')"></div>
-        <div class="task-body">
-          <div class="task-title">${escaparHtml(t.titulo)}</div>
-          ${t.descricao ? `<div class="task-desc">${escaparHtml(t.descricao)}</div>` : ''}
-          <div class="task-meta">
-            <span class="badge ${t.prioridade}">${t.prioridade}</span>
+      container.innerHTML = lista.map(t => {
+      const vencida = estaVencida(t);
+      const timer = calcularTimer(t.prazo, t.concluida);
+      const timerHtml = timer ? `
+        <div class="task-timer ${timer.classe}">
+          ${timer.texto}
+        </div>` : '';
+      return `
+        <div class="task-item ${t.prioridade} ${t.concluida ? 'done' : ''} ${vencida ? 'vencida' : ''}" id="task-${t.taskId}">
+          <div class="task-check ${t.concluida ? 'checked' : ''}" onclick="toggleConcluida(${t.taskId}, ${!t.concluida}, '${escapar(t.titulo)}', '${escapar(t.descricao || '')}', '${t.prioridade}', '${t.prazo || ''}')"></div>
+          <div class="task-body">
+            <div class="task-title">${escaparHtml(t.titulo)}</div>
+            ${t.descricao ? `<div class="task-desc">${escaparHtml(t.descricao)}</div>` : ''}
+            <div class="task-meta">
+              <span class="badge ${t.prioridade}">${t.prioridade}</span>
+            </div>
           </div>
-        </div>
-        <div class="task-actions">
-          <button class="icon-btn edit" onclick="abrirModal(${t.taskId})" title="Editar">✎</button>
-          <button class="icon-btn del"  onclick="deletarTarefa(${t.taskId})" title="Deletar">✕</button>
-        </div>
-      </div>
-    `).join('');
+          <div class="task-right">
+            <div class="task-actions">
+              <button class="icon-btn edit" onclick="abrirModal(${t.taskId})" title="Editar">✎</button>
+              <button class="icon-btn del" onclick="deletarTarefa(${t.taskId})" title="Deletar">✕</button>
+            </div>
+            ${timerHtml}
+          </div>
+        </div>`;
+    }).join('');
+
+    const tarefasComPrazo = lista.filter(t => t.prazo && !t.concluida);
+    if (tarefasComPrazo.length > 0) {
+      timerInterval = setInterval(() => {
+        tarefasComPrazo.forEach(t => {
+          const el = document.querySelector(`[data-taskid="${t.taskId}"]`);
+          if (!el) return;
+          const timer = calcularTimer(t.prazo, t.concluida);
+          if (timer) {
+            el.textContent = timer.texto;
+            el.className = `timer-badge ${timer.classe}`;
+          }
+          const card = document.getElementById(`task-${t.taskId}`);
+          if (card) {
+            if (estaVencida(t)) card.classList.add('vencida');
+            else card.classList.remove('vencida');
+          }
+        });
+      }, 1000);
+    }
   }
 
   async function criarTarefa() {
     const titulo = document.getElementById('input-titulo').value.trim();
     if (!titulo) { mostrarToast('O título é obrigatório!'); return; }
 
+    const prazoVal = document.getElementById('input-prazo').value;
     const tarefa = {
       taskId: null,
       titulo,
       descricao: document.getElementById('input-descricao').value.trim() || null,
       prioridade: document.getElementById('input-prioridade').value,
-      concluida: false
+      concluida: false,
+      prazo: prazoVal || null
     };
 
     try {
@@ -615,18 +629,19 @@
       if (res.ok) {
         document.getElementById('input-titulo').value = '';
         document.getElementById('input-descricao').value = '';
+        document.getElementById('input-prazo').value = '';
         mostrarToast('Tarefa criada!');
         carregarTarefas();
       }
     } catch (e) { mostrarToast('Erro ao criar tarefa!'); }
   }
 
-  async function toggleConcluida(id, concluida, titulo, descricao, prioridade) {
+  async function toggleConcluida(id, concluida, titulo, descricao, prioridade, prazo) {
     try {
       await fetch(`${API}/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ taskId: id, titulo, descricao: descricao || null, prioridade, concluida })
+        body: JSON.stringify({ taskId: id, titulo, descricao: descricao || null, prioridade, concluida, prazo: prazo || null })
       });
       carregarTarefas();
     } catch (e) { mostrarToast('Erro ao atualizar tarefa!'); }
@@ -647,6 +662,7 @@
     document.getElementById('edit-titulo').value = t.titulo;
     document.getElementById('edit-descricao').value = t.descricao || '';
     document.getElementById('edit-prioridade').value = t.prioridade;
+    document.getElementById('edit-prazo').value = t.prazo || '';
     document.getElementById('modal').classList.add('open');
   }
 
@@ -660,12 +676,14 @@
     if (!titulo) { mostrarToast('O título é obrigatório!'); return; }
 
     const t = todasTarefas.find(x => x.taskId === id);
+    const prazoVal = document.getElementById('edit-prazo').value;
     const tarefa = {
       taskId: id,
       titulo,
       descricao: document.getElementById('edit-descricao').value.trim() || null,
       prioridade: document.getElementById('edit-prioridade').value,
-      concluida: t ? t.concluida : false
+      concluida: t ? t.concluida : false,
+      prazo: prazoVal || null
     };
 
     try {
@@ -692,10 +710,9 @@
   }
 
   function escapar(str) {
-    return str.replace(/'/g,"\\'").replace(/"/g,'\\"');
+    return (str || '').replace(/'/g,"\\'").replace(/"/g,'\\"');
   }
 
-  // Fechar modal clicando fora
   document.getElementById('modal').addEventListener('click', function(e) {
     if (e.target === this) fecharModal();
   });
@@ -704,3 +721,4 @@
 </script>
 </body>
 </html>
+

@@ -24,15 +24,15 @@ type API =
 handlerGetTasks :: Connection -> Handler TaskResponse
 handlerGetTasks conn = do
   res <- liftIO $ query_ conn
-    "SELECT id, titulo, descricao, prioridade, concluida FROM tasks"
-  let ts = map (\(i, t, d, p, c) -> Task (Just i) t d p c) res
+    "SELECT id, titulo, descricao, prioridade, concluida, to_char(prazo, 'YYYY-MM-DD\"T\"HH24:MI') FROM tasks"
+  let ts = map (\(i, t, d, p, c, pr) -> Task (Just i) t d p c pr) res
   pure (TaskResponse ts)
 
 handlerPostTask :: Connection -> Task -> Handler ResultadoResponse
 handlerPostTask conn task = do
   res <- liftIO $ query conn
-    "INSERT INTO tasks (titulo, descricao, prioridade, concluida) VALUES (?,?,?,?) RETURNING id"
-    (titulo task, descricao task, prioridade task, concluida task)
+    "INSERT INTO tasks (titulo, descricao, prioridade, concluida, prazo) VALUES (?,?,?,?,?) RETURNING id"
+    (titulo task, descricao task, prioridade task, concluida task, prazo task)
   case res of
     [Only novoId] -> pure (ResultadoResponse novoId)
     _             -> throwError err500
@@ -40,8 +40,8 @@ handlerPostTask conn task = do
 handlerPutTask :: Connection -> Int -> Task -> Handler ResultadoResponse
 handlerPutTask conn tid task = do
   _ <- liftIO $ execute conn
-    "UPDATE tasks SET titulo=?, descricao=?, prioridade=?, concluida=? WHERE id=?"
-    (titulo task, descricao task, prioridade task, concluida task, tid)
+    "UPDATE tasks SET titulo=?, descricao=?, prioridade=?, concluida=?, prazo=? WHERE id=?"
+    (titulo task, descricao task, prioridade task, concluida task, prazo task, tid)
   pure (ResultadoResponse tid)
 
 handlerDeleteTask :: Connection -> Int -> Handler ResultadoResponse
