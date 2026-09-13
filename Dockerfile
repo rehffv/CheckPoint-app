@@ -1,10 +1,7 @@
 FROM haskell:9.6
 
-RUN apt-get update --fix-missing && \
-    apt-get install -y --fix-missing \
-        libpq-dev \
-        pkg-config \
-        zlib1g-dev \
+RUN apt-get update && \
+    apt-get install -y pkg-config zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -12,10 +9,10 @@ WORKDIR /app
 COPY haskprojeto.cabal ./
 
 RUN cabal update
-RUN cabal build --only-dependencies
+RUN cabal build --only-dependencies --constraint="postgresql-libpq +bundled-libpq"
 
 COPY . .
 
-RUN cabal build
+RUN cabal build --constraint="postgresql-libpq +bundled-libpq"
 
 CMD ["cabal", "run", "haskprojeto"]
