@@ -1,4 +1,4 @@
-FROM haskell:9.6.7-slim-bullseye
+FROM haskell:9.6.7-slim-bookworm
 
 RUN apt-get update && \
     apt-get install -y \
