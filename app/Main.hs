@@ -20,7 +20,7 @@ main = do
           Nothing -> 8080
 
   conn <- case dbUrl of
-    Just url -> connectPostgreSQL (fromString url)
+    Just url -> connectPostgreSQL (fromString (url ++ "?sslmode=require"))
     Nothing  -> connect defaultConnectInfo
       { connectHost     = "localhost"
       , connectDatabase = "taskdb"
