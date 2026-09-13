@@ -6,17 +6,13 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY haskprojeto.cabal ./
+COPY haskprojeto.cabal cabal.project ./
 
 RUN cabal update
-RUN cabal build --only-dependencies \
-    --constraint="postgresql-libpq +bundled-libpq" \
-    --constraint="postgresql-libpq <0.9.5"
+RUN cabal build --only-dependencies
 
 COPY . .
 
-RUN cabal build \
-    --constraint="postgresql-libpq +bundled-libpq" \
-    --constraint="postgresql-libpq <0.9.5"
+RUN cabal build
 
 CMD ["cabal", "run", "haskprojeto"]
