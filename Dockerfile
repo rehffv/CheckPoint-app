@@ -1,12 +1,13 @@
-FROM haskell:9.6.7
-
-WORKDIR /app
+FROM haskell:9.6.7-slim-bullseye
 
 RUN apt-get update && \
     apt-get install -y \
         libpq-dev \
         pkg-config \
-        zlib1g-dev
+        zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
 
 COPY haskprojeto.cabal ./
 
