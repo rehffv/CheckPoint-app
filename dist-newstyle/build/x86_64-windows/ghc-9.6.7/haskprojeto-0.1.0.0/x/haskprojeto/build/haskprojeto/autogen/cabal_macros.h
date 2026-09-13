@@ -10,9 +10,9 @@
   (major1) == 0 && (major2) <  1 || \
   (major1) == 0 && (major2) == 1 && (minor) <= 0)
 #endif /* MIN_VERSION_haskprojeto */
-/* package aeson-2.2.5.0 */
+/* package aeson-2.2.5.1 */
 #ifndef VERSION_aeson
-#define VERSION_aeson "2.2.5.0"
+#define VERSION_aeson "2.2.5.1"
 #endif /* VERSION_aeson */
 #ifndef MIN_VERSION_aeson
 #define MIN_VERSION_aeson(major1,major2,minor) (\
@@ -80,25 +80,25 @@
   (major1) == 0 && (major2) <  20 || \
   (major1) == 0 && (major2) == 20 && (minor) <= 3)
 #endif /* MIN_VERSION_servant_server */
-/* package wai-3.2.4 */
+/* package wai-3.2.5 */
 #ifndef VERSION_wai
-#define VERSION_wai "3.2.4"
+#define VERSION_wai "3.2.5"
 #endif /* VERSION_wai */
 #ifndef MIN_VERSION_wai
 #define MIN_VERSION_wai(major1,major2,minor) (\
   (major1) <  3 || \
   (major1) == 3 && (major2) <  2 || \
-  (major1) == 3 && (major2) == 2 && (minor) <= 4)
+  (major1) == 3 && (major2) == 2 && (minor) <= 5)
 #endif /* MIN_VERSION_wai */
-/* package warp-3.4.13.1 */
+/* package warp-3.4.15 */
 #ifndef VERSION_warp
-#define VERSION_warp "3.4.13.1"
+#define VERSION_warp "3.4.15"
 #endif /* VERSION_warp */
 #ifndef MIN_VERSION_warp
 #define MIN_VERSION_warp(major1,major2,minor) (\
   (major1) <  3 || \
   (major1) == 3 && (major2) <  4 || \
-  (major1) == 3 && (major2) == 4 && (minor) <= 13)
+  (major1) == 3 && (major2) == 4 && (minor) <= 15)
 #endif /* MIN_VERSION_warp */
 
 /* tool gcc-14.0.6 */

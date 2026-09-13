@@ -36,7 +36,7 @@ executable haskprojeto
                         wai,
                         warp,
                         aeson,
-                        postgresql-simple,
+                        postgresql-simple < 0.7,
                         mtl,
                         bytestring
 
