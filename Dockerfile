@@ -1,15 +1,15 @@
-FROM haskell:9.6
-
-RUN apt-get update && \
-    apt-get install -y \
-        pkg-config \
-        zlib1g-dev \
-        postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
+FROM haskell:9.6.7
 
 WORKDIR /app
 
-COPY haskprojeto.cabal cabal.project ./
+RUN apt-get update -o Acquire::Check-Valid-Until=false && \
+    apt-get install -y --fix-missing \
+        pkg-config \
+        zlib1g-dev && \
+    apt-get install -y --fix-missing -t bullseye libpq-dev || \
+    apt-get install -y --fix-missing libpq-dev
+
+COPY haskprojeto.cabal ./
 
 RUN cabal update
 RUN cabal build --only-dependencies
