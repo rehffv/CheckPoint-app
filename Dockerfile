@@ -1,7 +1,10 @@
 FROM haskell:9.6
 
 RUN apt-get update && \
-    apt-get install -y pkg-config zlib1g-dev \
+    apt-get install -y \
+        pkg-config \
+        zlib1g-dev \
+        postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
