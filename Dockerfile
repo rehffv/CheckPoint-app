@@ -1,8 +1,7 @@
 FROM haskell:9.6
 
-RUN sed -i 's|http://deb.debian.org/debian-security|https://security.debian.org/debian-security|g' /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get install -y \
+RUN apt-get update --fix-missing && \
+    apt-get install -y --fix-missing \
         libpq-dev \
         pkg-config \
         zlib1g-dev \
